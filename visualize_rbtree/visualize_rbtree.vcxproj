@@ -98,6 +98,7 @@
       <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/force %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <QtMoc>
       <OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>
@@ -115,6 +116,7 @@
     </QtRcc>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="draw.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mainwindow.cpp" />
   </ItemGroup>
@@ -126,6 +128,16 @@
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="Mainwindow.qrc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="arrayQueue.h" />
+    <ClInclude Include="Color.h" />
+    <ClInclude Include="linkedrbTree.h" />
+    <ClInclude Include="myExceptions.h" />
+    <ClInclude Include="queue.h" />
+    <ClInclude Include="rbTree.h" />
+    <ClInclude Include="rbTreeNode.h" />
+    <QtMoc Include="draw.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
