@@ -32,7 +32,7 @@ public:
 	void insert(pair<int, string>&);	//插入操作
 	void erase(const int&);	//删除操作
 	int size() const { return treeSize; }
-	void find(const int&) const;	//查找
+	string find(const int&) const;	//查找
 
 	void preOrder() { pre(root); cout << endl; }	//前序遍历
 	void inOrder() { in(root); cout << endl; }	//中序遍历
@@ -119,15 +119,23 @@ private:
 	}
 	int height(rbTreeNode<int,string>* node) {
 		if (node == NIL)	return 0;
-		return (height(node->leftChild) > height(node->rightChild)) ? (height(node->leftChild) + 1) : (height(node->rightChild) + 1);
+		int heightOfLeft = 0;
+		int heightOfRight = 0;
+		if (node->leftChild != NIL)
+			heightOfLeft = height(node->leftChild);
+		if (node->rightChild != NIL)
+			heightOfRight = height(node->rightChild);
+		return (heightOfLeft > heightOfRight) ? (heightOfLeft + 1) : (heightOfRight + 1);
 	}
 	int insertionType(rbTreeNode<int,string>* iter, rbTreeNode<int,string>* parent, rbTreeNode<int,string>* uncle, rbTreeNode<int,string>* grandParent);
 
 	void fixUp_Delete(rbTreeNode<int, string> *, rbTreeNode<int, string> *);
 };
 
-void linkedrbTree::find(const int& theKey) const {//查找元素
-	if (treeSize == 0) throw emptyTree("There's no element in the red-black tree.");
+string linkedrbTree::find(const int& theKey) const {//查找元素
+	string info;
+	if (root == NIL)
+		info = "There's no element in the red-black tree.";
 
 	rbTreeNode<int,string>* iter = root;
 	while (iter != NIL && iter->element.first != theKey) {
@@ -135,9 +143,10 @@ void linkedrbTree::find(const int& theKey) const {//查找元素
 		else iter = iter->rightChild;	//迭代器指向右孩子
 	}
 	if (iter == NIL)
-		cout << "查找的元素不存在！" << endl;
+		info = "The element doesn't exist!";
 	else
-		cout << theKey << ": " << iter->element.second << endl;
+		info = iter->element.second;
+	return info;
 }
 
 void linkedrbTree::initialize(const int* theKey,const string* theElement,int n) {
@@ -547,7 +556,7 @@ void linkedrbTree::calPosition() {
 		iter = iter->leftChild;
 	//调用succ()计算横坐标
 	while (iter != NIL) {
-		iter->position.first = ++xpos;
+		iter->position.first = xpos++;
 		iter = succ(iter);
 	}
 }

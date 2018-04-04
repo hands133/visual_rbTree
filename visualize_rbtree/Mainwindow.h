@@ -8,6 +8,8 @@
 #include <qpushbutton.h>
 #include <qlineedit.h>
 #include <qscrollarea.h>
+#include <qtextedit.h>
+#include <qlabel.h>
 
 #include "draw.h"
 
@@ -18,6 +20,10 @@ class Mainwindow : public QMainWindow
 	Q_OBJECT
 
 public:
+	QLabel * label;
+
+	QPushButton * find;
+	QLineEdit *findElement;
 	bool initialclick = false;
 	QPushButton * initialization;
 
@@ -30,12 +36,15 @@ public:
 	QLineEdit *elemsecond;
 
 	DrawWidget *d;
+
+	QWidget * widget;
 	Mainwindow(QWidget *parent = Q_NULLPTR);
 	~Mainwindow();
 	public slots:
 	void insertclicked();
 	void deleteclicked();
 	void initialclicked();
+	void findclicked();
 };
 
 

@@ -1,4 +1,5 @@
 #include "draw.h"
+#include <math.h>
 
 #include <qpainter.h>
 
@@ -8,6 +9,16 @@ DrawWidget::DrawWidget(QWidget *p) :QWidget(p) {
 
 void DrawWidget::paintEvent(QPaintEvent *event) {
 	Q_UNUSED(event);
+
+	int nodes = red_black_tree->size();
+
+	int Horizental = 800;
+	int Vertical = (nodes == 0) ? 0 : (500 / (red_black_tree->treeHight() + 1));
+	double radius;
+	if (nodes == 1)
+		radius = 60;
+	else
+		radius = 80 * nodes*log(nodes) / sqrt(1 + nodes * nodes * nodes);
 
 	QPainter painter(this);
 	// 设置画笔颜色
@@ -38,8 +49,10 @@ void DrawWidget::paintEvent(QPaintEvent *event) {
 			if (parent != red_black_tree->getNil()) {
 				pen.setColor((iter->nodeColor == red) ? Qt::red : Qt::black);
 				painter.setPen(pen);
-				painter.drawLine(50 * iter->position.first + 25,80 * iter->position.second + 40,
-					50 * parent->position.first + 25,80 * parent->position.second + 40);
+				painter.drawLine(iter->position.first*Horizental / (nodes + 1) + radius / 2,
+					iter->position.second*Vertical+ radius / 2 -  Vertical,
+					parent->position.first*Horizental / (nodes + 1) + radius / 2,
+					parent->position.second*Vertical + radius / 2 - Vertical);
 			}
 			iter = red_black_tree->succ(iter);
 			parent = red_black_tree->findParent(iter);
@@ -50,7 +63,14 @@ void DrawWidget::paintEvent(QPaintEvent *event) {
 	painter.setPen(pen);
 
 	//遍历第二遍找到节点
-	if (red_black_tree->size() != 0) {
+	if (nodes == 0) {
+		painter.setBrush(Qt::black);
+		painter.drawEllipse(200, 100, 60, 60);
+		painter.setFont(font);
+		painter.setPen(Qt::white);
+		painter.drawText(220, 135, QString("NIL"));
+	}
+	else {
 		//找到中序遍历最开始的节点
 		red_black_tree->calPosition();	//计算每个节点的位置
 		rbTreeNode<int, string> *iter = red_black_tree->getroot();
@@ -58,20 +78,15 @@ void DrawWidget::paintEvent(QPaintEvent *event) {
 			iter = iter->leftChild;
 		while (iter != red_black_tree->getNil()) {
 			painter.setBrush((iter->nodeColor == red)?Qt::red : Qt::black);
-			painter.drawEllipse(iter->position.first*50,iter->position.second*80+10, 60, 60);
+			painter.drawEllipse(iter->position.first*Horizental / (nodes + 1),
+				iter->position.second*Vertical - Vertical, radius, radius);
 
 
-			painter.drawText(iter->position.first * 50 + 20,
-				iter->position.second * 80 + 45,
-				QString::number(iter->element.first));
+			painter.drawText(iter->position.first*Horizental / (nodes + 1) + radius / 2 - 15,
+				iter->position.second*Vertical + radius / 2 + 5 - Vertical,
+				QString::number(iter->element.first) + QString(":")
+				+QString::fromStdString(iter->element.second));
 			iter = red_black_tree->succ(iter);
 		}
-	}
-	else{
-		painter.setBrush(Qt::black);
-		painter.drawEllipse(200, 100, 60, 60);
-		painter.setFont(font);
-		painter.setPen(Qt::white);
-		painter.drawText(220, 135, QString("NIL"));
 	}
 }
