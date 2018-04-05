@@ -15,6 +15,7 @@ void DrawWidget::paintEvent(QPaintEvent *event) {
 	int Horizental = 800;
 	int Vertical = (nodes == 0) ? 0 : (500 / (red_black_tree->treeHight() + 1));
 	double radius;
+	int verticalOffset = 80;
 	if (nodes == 1)
 		radius = 60;
 	else
@@ -50,9 +51,9 @@ void DrawWidget::paintEvent(QPaintEvent *event) {
 				pen.setColor((iter->nodeColor == red) ? Qt::red : Qt::black);
 				painter.setPen(pen);
 				painter.drawLine(iter->position.first*Horizental / (nodes + 1) + radius / 2,
-					iter->position.second*Vertical+ radius / 2 -  Vertical,
+					iter->position.second*Vertical+ radius / 2 -  Vertical + verticalOffset,
 					parent->position.first*Horizental / (nodes + 1) + radius / 2,
-					parent->position.second*Vertical + radius / 2 - Vertical);
+					parent->position.second*Vertical + radius / 2 - Vertical + verticalOffset);
 			}
 			iter = red_black_tree->succ(iter);
 			parent = red_black_tree->findParent(iter);
@@ -79,11 +80,11 @@ void DrawWidget::paintEvent(QPaintEvent *event) {
 		while (iter != red_black_tree->getNil()) {
 			painter.setBrush((iter->nodeColor == red)?Qt::red : Qt::black);
 			painter.drawEllipse(iter->position.first*Horizental / (nodes + 1),
-				iter->position.second*Vertical - Vertical, radius, radius);
+				iter->position.second*Vertical - Vertical + verticalOffset, radius, radius);
 
 
 			painter.drawText(iter->position.first*Horizental / (nodes + 1) + radius / 2 - 15,
-				iter->position.second*Vertical + radius / 2 + 5 - Vertical,
+				iter->position.second*Vertical + radius / 2 + 5 - Vertical + verticalOffset,
 				QString::number(iter->element.first) + QString(":")
 				+QString::fromStdString(iter->element.second));
 			iter = red_black_tree->succ(iter);

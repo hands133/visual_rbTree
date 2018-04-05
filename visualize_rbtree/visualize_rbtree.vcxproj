@@ -130,8 +130,11 @@
     <QtRcc Include="Mainwindow.qrc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="arrayList.h" />
     <ClInclude Include="arrayQueue.h" />
+    <ClInclude Include="changeLength1D.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="linearList.h" />
     <ClInclude Include="linkedrbTree.h" />
     <ClInclude Include="myExceptions.h" />
     <ClInclude Include="queue.h" />

@@ -80,5 +80,14 @@
     <ClInclude Include="rbTreeNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="changeLength1D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="linearList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="arrayList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

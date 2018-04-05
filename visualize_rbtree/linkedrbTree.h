@@ -281,12 +281,13 @@ void linkedrbTree::insert(pair<int,string>& thePair) {
 }
 
 void linkedrbTree::erase(const int& theKey) {
-	if (root == NIL)
+	if (root == NIL || treeSize == 0)
 		return;
 	if (root->leftChild == NIL && root->rightChild == NIL && root->element.first == theKey) {
 		root->leftChild = NULL;
 		root->rightChild = NULL;
 		delete root;
+		root = NIL;
 		treeSize--;
 		return;
 	}

@@ -20,31 +20,34 @@ class Mainwindow : public QMainWindow
 	Q_OBJECT
 
 public:
-	QLabel * label;
+	QLineEdit * elem;		//插入元素pair<int,string>的first
+	QLineEdit *elemsecond;	//插入元素pair<int,string>的second
+	QPushButton *insert;	//插入按钮
 
-	QPushButton * find;
-	QLineEdit *findElement;
-	bool initialclick = false;
-	QPushButton * initialization;
+	QLabel * label;			//用于显示查找到的元素的second
+	QPushButton * find;		//查找按钮
+	QLineEdit *findElement;	//查找元素输入框
 
-	QLineEdit * elem;
-	QPushButton *insert;
+	QLineEdit *todelete;		//删除元素theElement
+	QPushButton *buttondelete;	//删除按钮
 
-	QLineEdit *todelete;
-	QPushButton *buttondelete;
+	QPushButton * initialization;	//初始化按钮
+	QLineEdit *initialElements;		//初始化元素
 
-	QLineEdit *elemsecond;
+	QPushButton * random_insert;	//随机插入按钮
+	QLineEdit * numberOfrandom_insert;	//随机插入元素个数
 
-	DrawWidget *d;
+	DrawWidget *d;		//绘图面板
 
 	QWidget * widget;
 	Mainwindow(QWidget *parent = Q_NULLPTR);
 	~Mainwindow();
 	public slots:
-	void insertclicked();
-	void deleteclicked();
-	void initialclicked();
-	void findclicked();
+	void insertclicked();	//插入点击事件
+	void deleteclicked();	//删除点击事件
+	void initialclicked();	//初始化点击事件
+	void findclicked();		//查找点击事件
+	void random_insertclicked();	//随机插入点击事件
 };
 
 
