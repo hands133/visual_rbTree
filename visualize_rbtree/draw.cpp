@@ -14,13 +14,14 @@ void DrawWidget::paintEvent(QPaintEvent *event) {
 
 	int Horizental = 800;
 	int Vertical = (nodes == 0) ? 0 : (500 / (red_black_tree->treeHight() + 1));
-	double radius;
+	double radius = 3.0;
 	int verticalOffset = 80;
+	/*
 	if (nodes == 1)
 		radius = 60;
 	else
 		radius = 80 * nodes*log(nodes) / sqrt(1 + nodes * nodes * nodes);
-
+		*/
 	QPainter painter(this);
 	// ÉèÖÃ»­±ÊÑÕÉ«
 
@@ -31,12 +32,12 @@ void DrawWidget::paintEvent(QPaintEvent *event) {
 	painter.setFont(font);
 
 	QPen pen;
-	pen.setWidth(3);
-
+	pen.setWidth(1);
+	/*
 	painter.setRenderHint(QPainter::Antialiasing, true);
 	painter.setRenderHint(QPainter::TextAntialiasing, true);
 	painter.setRenderHint(QPainter::SmoothPixmapTransform,true);
-
+	*/
 	if (red_black_tree->size() == 0 || red_black_tree->size() == 1){}
 	else {
 		red_black_tree->calPosition();
@@ -82,12 +83,14 @@ void DrawWidget::paintEvent(QPaintEvent *event) {
 			painter.drawEllipse(iter->position.first*Horizental / (nodes + 1),
 				iter->position.second*Vertical - Vertical + verticalOffset, radius, radius);
 
-
+			/*
 			painter.drawText(iter->position.first*Horizental / (nodes + 1) + radius / 2 - 15,
 				iter->position.second*Vertical + radius / 2 + 5 - Vertical + verticalOffset,
 				QString::number(iter->element.first) + QString(":")
 				+QString::fromStdString(iter->element.second));
+				*/
 			iter = red_black_tree->succ(iter);
+			
 		}
 	}
 }

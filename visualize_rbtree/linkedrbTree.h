@@ -113,9 +113,12 @@ private:
 		node2->nodeColor = ex;
 	}
 	int redsons(rbTreeNode<int, string>* node) {
-		if (node == NIL)	return 0;
-		else if (node->nodeColor == red)	return 1;
-		return redsons(node->leftChild) + redsons(node->rightChild);
+		int redson = 0;
+		if (node->leftChild->nodeColor == red)
+			redson++;
+		if (node->rightChild->nodeColor == red)
+			redson++;
+		return redson;
 	}
 	int height(rbTreeNode<int,string>* node) {
 		if (node == NIL)	return 0;
